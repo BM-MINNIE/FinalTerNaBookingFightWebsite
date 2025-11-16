@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - Flight Booking System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="staff-style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="staff-profile">
+                <div class="profile-photo">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="profile-info">
+                    <h3>Staff User</h3>
+                    <p>Staff</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="schedule">
+                    <span>✈️ Flight Schedule</span>
+                </a>
+                
+                <a href="#" class="nav-item" data-page="booking">
+                    <span>🎫 Booking Management</span>
+                </a>
+                
+                <a href="#" class="nav-item" data-page="passenger">
+                    <span>👤 Passenger Info</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logoutBtn">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" placeholder="Search...">
+                </div>
+            </div>
+
+            <section class="content-section active" id="schedule-section">
+                <div class="section-header">
+                    <h1>Flight Schedule</h1>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Flight ID</th>
+                                <th>Airplane ID</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Departure</th>
+                                <th>Arrival</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flightTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-section" id="booking-section">
+                <div class="section-header">
+                    <h1>Booking Management</h1>
+                    <button class="btn-add" onclick="openAddModal('booking')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Add Booking
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>User ID</th>
+                                <th>Flight ID</th>
+                                <th>Payment Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-section" id="passenger-section">
+                <div class="section-header">
+                    <h1>Passenger Info</h1>
+                    <button class="btn-add" onclick="openAddModal('passenger')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Add Passenger
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Passenger ID</th>
+                                <th>Flight ID</th>
+                                <th>Name</th>
+                                <th>Passport No</th>
+                                <th>Seat</th>
+                                <th>Meal</th>
+                                <th>Wifi</th>
+                                <th>Luggage</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="passengerTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="bookingModalTitle">Add Booking</h2>
+                <button class="modal-close" onclick="closeModal('bookingModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <input type="hidden" id="bookingEditId" value="">
+                    <div class="form-group">
+                        <label>User ID</label>
+                        <input type="number" id="userId" placeholder="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Flight ID</label>
+                        <select id="bookingFlightId" required>
+                            <option value="">Select Flight</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" id="bookingAmount" placeholder="1000.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Status</label>
+                        <select id="paymentStatus" required>
+                            <option value="Pending">Pending</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Failed">Failed</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('bookingModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Passenger Modal -->
+    <div class="modal-overlay" id="passengerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="passengerModalTitle">Add Passenger</h2>
+                <button class="modal-close" onclick="closeModal('passengerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="passengerForm">
+                    <input type="hidden" id="passengerEditId" value="">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Booking ID</label>
+                            <input type="number" id="passengerBookingId" placeholder="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Flight ID</label>
+                            <select id="passengerFlightId" required>
+                                <option value="">Select Flight</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="passengerFirstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="passengerLastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Passport Number</label>
+                        <input type="text" id="passportId" placeholder="P123456" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Seat Number</label>
+                            <input type="text" id="seat" placeholder="12A" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Meal Preference</label>
+                            <select id="meal" required>
+                                <option value="">Select Meal</option>
+                                <option value="Norm">Normal Meal</option>
+                                <option value="Vegan">Vegetarian Meal</option>
+                                <option value="Low">Low Salt Meal</option>
+                                <option value="Diabetic">Diabetic Meal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Wifi Service</label>
+                            <select id="wifiservice" required>
+                                <option value="">Select Wifi Option</option>
+                                <option value="wifi">With Wifi</option>
+                                <option value="nowifi">No Wifi</option>
+                            </select>
+                        </div>                    
+                        <div class="form-group">
+                            <label>Luggage Weight (kg)</label>
+                            <select id="luggageWeight" required>
+                                <option value="">Select Weight</option>
+                                <option value="20">20 kg</option>
+                                <option value="23">23 kg</option>
+                                <option value="25">25 kg</option>
+                                <option value="27">27 kg</option>
+                                <option value="30">30 kg</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('passengerModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="staff-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 42px;
+    color: #2e59a7;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #666;
+    font-size: 18px;
+}
+
+/* Flight Tabs (for Round Trip) */
+.flight-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.flight-tab {
+    padding: 15px 40px;
+    background: #fff;
+    border: 3px solid #e0e0e0;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s;
+    color: #666;
+}
+
+.flight-tab:hover {
+    border-color: #2e59a7;
+    color: #2e59a7;
+    transform: translateY(-2px);
+}
+
+.flight-tab.active {
+    background: #2e59a7;
+    border-color: #2e59a7;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(46, 89, 167, 0.3);
+}
+
+/* Flight Info Banner */
+.flight-info-banner {
+    background: #3862af;
+    /* background: linear-gradient(135deg, #2e59a7 0%, #52a9e0 100%); */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgba(46, 89, 167, 0.3);
+}
+
+/* Passenger Tabs */
+.passenger-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.passenger-tab {
+    padding: 12px 30px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    color: #666;
+}
+
+.passenger-tab:hover {
+    border-color: #2e59a7;
+    color: #2e59a7;
+}
+
+.passenger-tab.active {
+    background: #2e59a7;
+    border-color: #2e59a7;
+    color: #fff;
+}
+
+.passenger-tab.completed {
+    background: #27ae60;
+    border-color: #27ae60;
+    color: #fff;
+}
+
+/* Passenger Form */
+.passenger-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.passenger-form {
+    display: none;
+}
+
+.passenger-form.active {
+    display: block;
+}
+
+.passenger-form h2 {
+    color: #2e59a7;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-group select,
+.form-group input {
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    background: #f8f9fa;
+    transition: all 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    outline: none;
+    border-color: #2e59a7;
+    background: #fff;
+}
+
+/* Services Section */
+.services-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.services-section h2 {
+    color: #2e59a7;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* Seat Selection */
+.selected-seats-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #e8f0ff;
+    border-radius: 8px;
+    color: #2e59a7;
+    font-weight: 500;
+}
+
+.seat-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.seat-labels {
+    display: grid;
+    grid-template-columns: 50px repeat(3, 50px) 40px repeat(3, 50px);
+    gap: 8px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2e59a7;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 10px;
+    justify-content: center;
+}
+
+.seat-labels .row-label {
+    text-align: center;
+}
+
+.seat-labels .aisle {
+    background: transparent;
+}
+
+.seat-map-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px 10px;
+    background: #fafbfc;
+}
+
+.seat-map-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.seat-map-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.seat-map-wrapper::-webkit-scrollbar-thumb {
+    background: #2e59a7;
+    border-radius: 10px;
+}
+
+.seat-map-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #234785;
+}
+
+.seat-map {
+    display: grid;
+    grid-template-columns: 50px repeat(3, 50px) 40px repeat(3, 50px);
+    gap: 8px;
+    justify-content: center;
+}
+
+.seat-row {
+    display: contents;
+}
+
+.row-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #666;
+    font-size: 13px;
+}
+
+.seat {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f8f9fa;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 11px;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.seat:hover:not(.selected):not(.taken):not(.occupied) {
+    border-color: #2e59a7;
+    background: #e8f0ff;
+    transform: scale(1.05);
+}
+
+.seat.selected {
+    background: #2e59a7;
+    border-color: #2e59a7;
+    color: #fff;
+}
+
+.seat.taken {
+    background: #52a9e0;
+    border-color: #52a9e0;
+    color: #fff;
+    cursor: default;
+}
+
+/* OCCUPIED SEAT STYLE - Gray color for pre-booked seats */
+.seat.occupied {
+    background: #bbb;
+    border-color: #999;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.aisle {
+    background: transparent;
+    border: none;
+    cursor: default;
+}
+
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+}
+
+.legend-box.available {
+    background: #f8f9fa;
+}
+
+.legend-box.selected {
+    background: #2e59a7;
+    border-color: #2e59a7;
+}
+
+/* OCCUPIED LEGEND BOX - Matches occupied seat style */
+.legend-box.occupied {
+    background: #bbb;
+    border-color: #999;
+}
+
+/* Luggage Options */
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.option-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f8f9fa;
+}
+
+.option-card:hover {
+    border-color: #2e59a7;
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+.option-card.selected {
+    border-color: #2e59a7;
+    background: #e8f0ff;
+}
+
+.option-card input[type="radio"] {
+    display: none;
+}
+
+.option-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.option-price {
+    color: #2e59a7;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Service Card */
+.service-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    transition: all 0.3s;
+}
+
+.service-card:hover {
+    border-color: #2e59a7;
+    background: #fff;
+}
+
+.service-card.active {
+    border-color: #2e59a7;
+    background: #e8f0ff;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: #2e59a7;
+}
+
+.checkbox-content {
+    flex: 1;
+}
+
+.checkbox-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.checkbox-price {
+    color: #e74c3c;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.meal-dropdown {
+    margin-top: 15px;
+    display: none;
+}
+
+.meal-dropdown.active {
+    display: block;
+}
+
+.meal-dropdown select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    background: #fff;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+}
+
+.meal-dropdown select:focus {
+    outline: none;
+    border-color: #2e59a7;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/* Summary Section */
+.summary-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.summary-section h2 {
+    color: #2e59a7;
+    margin-bottom: 25px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.passenger-summary {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+}
+
+.passenger-summary h3 {
+    color: #2e59a7;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    color: #666;
+}
+
+.summary-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 3px solid #2e59a7;
+    font-size: 24px;
+    font-weight: 700;
+    color: #2e59a7;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 16px 60px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn-primary {
+    background: #2e59a7;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #234785;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(46, 89, 167, 0.3);
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #2e59a7;
+    border: 2px solid #2e59a7;
+}
+
+.btn-secondary:hover {
+    background: #2e59a7;
+    color: #fff;
+}
+
+.btn-cancel {
+    background: #fff;
+    color: #666;
+    border: 2px solid #e0e0e0;
+}
+
+.btn-cancel:hover {
+    background: #f8f9fa;
+    border-color: #666;
+    color: #333;
+}
+
+.btn-confirm {
+    background: #2e59a7;
+    color: #fff;
+}
+
+.btn-confirm:hover {
+    background: #234785;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(46, 89, 167, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flight-tabs {
+        flex-direction: column;
+    }
+
+    .flight-tab {
+        width: 100%;
+    }
+
+    .seat-labels {
+        grid-template-columns: 40px repeat(3, 40px) 30px repeat(3, 40px);
+        gap: 6px;
+    }
+
+    .seat-map {
+        grid-template-columns: 40px repeat(3, 40px) 30px repeat(3, 40px);
+        gap: 6px;
+    }
+
+    .seat {
+        width: 40px;
+        height: 40px;
+        font-size: 10px;
+    }
+
+    .option-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    }
+
+    .navigation-buttons,
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .summary-total {
+        font-size: 20px;
+    }
+}

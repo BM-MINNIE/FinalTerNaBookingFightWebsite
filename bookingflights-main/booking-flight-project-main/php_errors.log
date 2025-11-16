@@ -1,0 +1,39 @@
+[13-Nov-2025 09:34:00 UTC] === API Request Started ===
+[13-Nov-2025 09:34:00 UTC] Action: addBooking
+[13-Nov-2025 09:34:00 UTC] Method: POST
+[13-Nov-2025 09:34:00 UTC] Database connected successfully
+[13-Nov-2025 09:34:00 UTC] === API Request Completed ===
+[13-Nov-2025 09:34:00 UTC] === API Request Started ===
+[13-Nov-2025 09:34:00 UTC] Action: addPassenger
+[13-Nov-2025 09:34:00 UTC] Method: POST
+[13-Nov-2025 09:34:00 UTC] Database connected successfully
+[13-Nov-2025 09:34:00 UTC] Passenger raw input: {"booking_id":1,"flight_id":"TG642-1","fname":"Cha","lname":"Hon","passport_no":"123","seat_no":"1A","luggage_weight":25,"Meal":"Diabetic","Wifi":1}
+[13-Nov-2025 09:34:00 UTC] Passenger decoded data: Array
+(
+    [booking_id] => 1
+    [flight_id] => TG642-1
+    [fname] => Cha
+    [lname] => Hon
+    [passport_no] => 123
+    [seat_no] => 1A
+    [luggage_weight] => 25
+    [Meal] => Diabetic
+    [Wifi] => 1
+)
+
+[13-Nov-2025 09:34:00 UTC] PHP Warning:  Undefined array key "meal" in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 451
+[13-Nov-2025 09:34:00 UTC] PHP Warning:  Undefined array key "meal" in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 451
+[13-Nov-2025 09:34:00 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 451
+[13-Nov-2025 09:34:00 UTC] Meal value: '' (length: 0)
+[13-Nov-2025 09:34:00 UTC] PHP Warning:  Undefined array key "meal" in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 452
+[13-Nov-2025 09:34:00 UTC] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 452
+[13-Nov-2025 09:34:00 UTC] Meal bytes: 
+[13-Nov-2025 09:34:00 UTC] PHP Warning:  Undefined array key "meal" in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 466
+[13-Nov-2025 09:34:00 UTC] PHP Warning:  Undefined array key "wifi" in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 467
+[13-Nov-2025 09:34:00 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in C:\MAMP\htdocs\bookingflights-main\booking-flight-project-main\api.php on line 469
+[13-Nov-2025 09:34:00 UTC] Prepared meal value: '' (length: 0)
+[13-Nov-2025 09:34:00 UTC] Preparing passenger statement...
+[13-Nov-2025 09:34:00 UTC] Binding passenger parameters...
+[13-Nov-2025 09:34:00 UTC] Executing passenger statement...
+[13-Nov-2025 09:34:00 UTC] Error in addPassenger: Column 'Meal' cannot be null
+[13-Nov-2025 09:34:00 UTC] === API Request Completed ===

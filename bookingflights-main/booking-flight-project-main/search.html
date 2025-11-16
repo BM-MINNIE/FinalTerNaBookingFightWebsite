@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Flights</title>
+    <link rel="stylesheet" href="search-style.css">
+</head>
+<body>
+    <div class="profile-icon" onclick="toggleProfileMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+    </div>
+    
+    <div class="profile-menu" id="profile-menu">
+        <a href="#" onclick="showProfile()">Profile</a>
+        <a href="bookings.html" >Booking History</a>
+        <!-- <a href="bookings.html" onclick="showBookingHistory()">Booking History</a> -->
+        <a href="#" onclick="showSettings()">Settings</a>
+        <a href="index.html">Logout</a>
+    </div>
+
+    <div class="header">
+        <h1 class="greeting">Hello <span id="user-firstname">User</span>!</h1>
+        <p class="subtitle">Where're you flying to?</p>
+    </div>
+
+    <div class="container">
+        <div class="search-box">
+            <div class="trip-type">
+                <button type="button" class="trip-btn active" data-trip="oneway" onclick="selectTripType('oneway')">One Way</button>
+                <button type="button" class="trip-btn" data-trip="roundtrip" onclick="selectTripType('roundtrip')">Round Trip</button>
+            </div>
+
+            <form id="search-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>
+                            From 🛫
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-left: 5px;"> -->
+                                <path d="M12 2v20M12 2l7 7M12 2L5 9"></path>
+                            </svg>
+                        </label>
+                        <input type="text" id="from-airport" placeholder="Country or airport" required autocomplete="off">
+                        <div class="airport-dropdown" id="from-dropdown"></div>
+                    </div>
+                    
+                    <div class="swap-button" onclick="swapAirports()" title="Swap airports">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 3l4 4-4 4"></path>
+                            <path d="M20 7H4"></path>
+                            <path d="M8 13l-4 4 4 4"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>
+                            To 🛬
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-left: 5px;">
+                                <path d="M12 22V2M12 22l7-7M12 22l-7-7"></path> -->
+                            </svg>
+                        </label>
+                        <input type="text" id="to-airport" placeholder="Country or airport" required autocomplete="off">
+                        <div class="airport-dropdown" id="to-dropdown"></div>
+                    </div>
+                    <div class="input-group">
+                        <label>
+                            Departing 📆
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-left: 5px;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect> -->
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </label>
+                        <input type="date" id="depart-date" required>
+                    </div>
+                    <div class="input-group" id="return-date-group" style="display: none;">
+                        <label>
+                            Returning 📆
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-left: 5px;"> -->
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </label>
+                        <input type="date" id="return-date">
+                    </div>
+                    <div class="input-group">
+                        <label>
+                            Passengers 👥
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-left: 5px;"> -->
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </label>
+                        <div class="passenger-input" onclick="togglePassengerMenu()">
+                            <span id="passenger-display">1 Passenger</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button">Find Flights</button>
+            </form>
+        </div>
+
+        <div class="passenger-menu" id="passenger-menu">
+            <div class="passenger-menu-content">
+                <h3>Select Passengers</h3>
+                <div class="passenger-row">
+                    <div class="passenger-info">
+                        <span class="passenger-type">Adult</span>
+                        <span class="passenger-age">12+ years</span>
+                    </div>
+                    <div class="passenger-counter">
+                        <button type="button" onclick="changePassenger('adult', -1)">−</button>
+                        <span id="adult-count">1</span>
+                        <button type="button" onclick="changePassenger('adult', 1)">+</button>
+                    </div>
+                </div>
+                <div class="passenger-row">
+                    <div class="passenger-info">
+                        <span class="passenger-type">Child</span>
+                        <span class="passenger-age">2-11 years</span>
+                    </div>
+                    <div class="passenger-counter">
+                        <button type="button" onclick="changePassenger('child', -1)">−</button>
+                        <span id="child-count">0</span>
+                        <button type="button" onclick="changePassenger('child', 1)">+</button>
+                    </div>
+                </div>
+                <div class="passenger-row">
+                    <div class="passenger-info">
+                        <span class="passenger-type">Infant</span>
+                        <span class="passenger-age">Under 2 years</span>
+                    </div>
+                    <div class="passenger-counter">
+                        <button type="button" onclick="changePassenger('infant', -1)">−</button>
+                        <span id="infant-count">0</span>
+                        <button type="button" onclick="changePassenger('infant', 1)">+</button>
+                    </div>
+                </div>
+                <button type="button" class="done-button" onclick="togglePassengerMenu()">Done</button>
+            </div>
+        </div>
+
+        <div class="results-section" id="results-section" style="display: none;">
+            <h2 id="outbound-title">Select Outbound Flight</h2>
+            <div id="flight-results"></div>
+        </div>
+
+        <div class="results-section" id="return-results-section" style="display: none;">
+            <h2>Select Return Flight</h2>
+            <div id="return-flight-results"></div>
+        </div>
+    </div>
+
+    <script src="search-script.js"></script>
+</body>
+</html>
